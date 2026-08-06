@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import MegaMenu from './MegaMenu';
@@ -7,6 +7,41 @@ import assocLogo from '../assets/association-logo.png';
 import collegeLogo from '../assets/college-logo.png';
 
 export default function Navbar() {
+  const Magnetic = ({ children }) => {
+    const ref = useRef(null);
+    const [pos, setPos] = useState({ x: 0, y: 0 });
+
+    const handleMouseMove = (e) => {
+      if (!ref.current) return;
+      const { clientX, clientY } = e;
+      const { height, width, left, top } = ref.current.getBoundingClientRect();
+      const x = (clientX - (left + width / 2)) * 0.3;
+      const y = (clientY - (top + height / 2)) * 0.3;
+      setPos({ x, y });
+    };
+
+    const handleMouseLeave = () => {
+      setPos({ x: 0, y: 0 });
+    };
+
+    return (
+      <div
+        ref={ref}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transform: `translate(${pos.x}px, ${pos.y}px)`,
+          transition: pos.x === 0 && pos.y === 0 ? 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)' : 'transform 0.1s linear',
+        }}
+      >
+        {children}
+      </div>
+    );
+  };
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
 
@@ -26,10 +61,10 @@ export default function Navbar() {
     alignItems: 'center',
     padding: '0 5%',
     transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-    // Completely transparent when at the top to let the sky show through!
-    background: isScrolled ? 'var(--surface-900)' : 'transparent',
-    backdropFilter: isScrolled ? 'none' : 'none',
-    borderBottom: isScrolled ? '1px solid rgba(0,0,0,0.05)' : '1px solid transparent',
+    // Frosted glass background so black text is always legible
+    background: isScrolled ? 'var(--surface-900)' : 'rgba(255, 255, 255, 0.85)',
+    backdropFilter: isScrolled ? 'none' : 'blur(12px)',
+    borderBottom: isScrolled ? '1px solid rgba(0,0,0,0.05)' : '1px solid rgba(0,0,0,0.05)',
   };
 
   const navItems = [
@@ -124,26 +159,29 @@ export default function Navbar() {
           <div className="nav-desktop-links" style={{ display: 'flex', gap: '2rem', alignItems: 'center', height: '100%' }}>
             {navItems.map((item) => (
               <div key={item.name} className="nav-item-group" style={{ position: 'relative', height: '100%', display: 'flex', alignItems: 'center' }}>
-                <Link to={item.link} style={{
-                  color: 'var(--brand-50)',
-                  fontSize: '0.9rem',
-                  fontWeight: 500,
-                  letterSpacing: '0.5px',
-                  transition: 'color 0.3s',
-                  textDecoration: 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '4px'
-                }}
-                className="hover-accent"
-                >
-                  {item.name}
-                  {item.dropdown && (
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ transition: 'transform 0.3s' }} className="dropdown-arrow">
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                  )}
-                </Link>
+                <Magnetic>
+                  <Link to={item.link} style={{
+                    color: 'var(--brand-50)',
+                    fontSize: '0.9rem',
+                    fontWeight: 500,
+                    letterSpacing: '0.5px',
+                    transition: 'color 0.3s',
+                    textDecoration: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    padding: '10px'
+                  }}
+                  className="hover-accent"
+                  >
+                    {item.name}
+                    {item.dropdown && (
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ transition: 'transform 0.3s' }} className="dropdown-arrow">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    )}
+                  </Link>
+                </Magnetic>
                 
                 {item.dropdown && (
                   <div className="dropdown-menu" style={{
@@ -188,42 +226,47 @@ export default function Navbar() {
           </div>
 
           <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-            <button style={{
-              background: 'transparent',
-              color: 'var(--accent-500)',
-              border: '1px solid var(--accent-500)',
-              padding: '10px 24px',
-              borderRadius: '50px',
-              fontFamily: 'var(--font-body)',
-              fontWeight: 600,
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-            }}
-            className="apply-btn hover-bg-accent"
-            >
-              APPLY NOW
-            </button>
-            
-            <button 
-              onClick={() => setMegaMenuOpen(true)}
-              style={{
+            <Magnetic>
+              <button style={{
                 background: 'transparent',
-                border: 'none',
-                color: 'var(--brand-50)',
+                color: 'var(--accent-500)',
+                border: '1px solid var(--accent-500)',
+                padding: '10px 24px',
+                borderRadius: '50px',
+                fontFamily: 'var(--font-body)',
+                fontWeight: 600,
                 cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                fontSize: 'var(--text-sm)',
-                textTransform: 'uppercase',
-                letterSpacing: '2px',
-                transition: 'color 0.2s'
+                transition: 'all 0.3s ease',
               }}
-              className="menu-trigger hover-accent"
-            >
-              <Menu size={24} color="var(--accent-500)" />
-              <span className="menu-text">Menu</span>
-            </button>
+              className="apply-btn hover-bg-accent"
+              >
+                APPLY NOW
+              </button>
+            </Magnetic>
+            
+            <Magnetic>
+              <button 
+                onClick={() => setMegaMenuOpen(true)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: 'var(--brand-50)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontSize: 'var(--text-sm)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '2px',
+                  transition: 'color 0.2s',
+                  padding: '10px'
+                }}
+                className="menu-trigger hover-accent"
+              >
+                <Menu size={24} color="var(--accent-500)" />
+                <span className="menu-text">Menu</span>
+              </button>
+            </Magnetic>
           </div>
         </nav>
       </div>
