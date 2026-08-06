@@ -7,12 +7,15 @@ export default function Hero() {
   const canvasRef = useRef(null);
   const overlayRef = useRef(null);
   const preloaderTextRef = useRef(null); // Reference for the BLDE text
+  const collegePreloaderRef = useRef(null); // Reference for the College text
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Splitting text into individual spans for physics-based spring animation
   const bldeText = "BLDE".split("");
   const assocText = "Association's".split("");
+  const asPatilText = "A.S. Patil".split("");
+  const commerceText = "College of Commerce".split("");
 
   const totalFrames = 170;
   const frameImages = useRef([]);
@@ -76,6 +79,9 @@ export default function Hero() {
     
     // Set initial layout for BLDE Preloader text
     gsap.set('.preloader-char', { y: 100, opacity: 0 });
+    
+    // Set initial layout for College Preloader text
+    gsap.set('.college-preloader-char', { y: 100, opacity: 0 });
 
     const renderCanvas = () => {
       if (!canvasRef.current) return;
@@ -128,7 +134,7 @@ export default function Hero() {
     
     // 0.0s: Fade in the BLDE Association's text immediately
     masterTl.to('.preloader-char', 
-      { y: 0, opacity: 1, duration: 1.2, stagger: 0.03, ease: "power4.out" },
+      { y: 0, opacity: 1, duration: 1.0, stagger: 0.03, ease: "power4.out" },
       0
     );
 
@@ -141,10 +147,22 @@ export default function Hero() {
       onUpdate: renderCanvas
     }, 0);
 
-    // 2.8s: Sink the BLDE text down and fade it out
+    // 1.5s: Sink the BLDE text down and fade it out
     masterTl.to(preloaderTextRef.current, 
-      { y: 50, opacity: 0, duration: 0.8, ease: "power3.in" },
-      2.8
+      { y: 50, opacity: 0, duration: 0.6, ease: "power3.in" },
+      1.5
+    );
+
+    // 2.0s: Fade in A.S. Patil College of Commerce text
+    masterTl.to('.college-preloader-char',
+      { y: 0, opacity: 1, duration: 1.0, stagger: 0.02, ease: "power4.out" },
+      2.0
+    );
+
+    // 3.5s: Sink the College text down and fade it out
+    masterTl.to(collegePreloaderRef.current,
+      { y: 50, opacity: 0, duration: 0.6, ease: "power3.in" },
+      3.5
     );
 
     // 4.5s: Fade in the dark gradient overlay right as the drone stops
@@ -282,6 +300,35 @@ export default function Hero() {
           <span style={{ display: 'flex', opacity: 0.9 }}>
             {assocText.map((char, i) => (
               <span key={i} className="preloader-char" style={{ display: 'inline-block' }}>{char === " " ? "\u00A0" : char}</span>
+            ))}
+          </span>
+        </div>
+      </div>
+      {/* ---------------------------------------------------- */}
+
+      {/* --- COLLEGE PRELOADER TEXT LAYER (Floating over the drone) --- */}
+      <div ref={collegePreloaderRef} style={{
+        position: 'absolute',
+        top: 0, left: 0, width: '100%', height: '100%',
+        zIndex: 3, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        perspective: '1000px', pointerEvents: 'none',
+        opacity: isLoaded ? 1 : 0 
+      }}>
+        <div style={{
+          color: 'var(--brand-50)', fontFamily: 'var(--font-display)',
+          fontSize: 'clamp(2.5rem, 6vw, 5rem)', fontWeight: 300,
+          letterSpacing: '6px', textTransform: 'uppercase',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px',
+          textShadow: '0px 10px 40px rgba(255,255,255,0.9)'
+        }}>
+          <span style={{ color: 'var(--accent-500)', fontWeight: 600, display: 'flex' }}>
+            {asPatilText.map((char, i) => (
+              <span key={i} className="college-preloader-char" style={{ display: 'inline-block' }}>{char === " " ? "\u00A0" : char}</span>
+            ))}
+          </span> 
+          <span style={{ display: 'flex', opacity: 0.9 }}>
+            {commerceText.map((char, i) => (
+              <span key={i} className="college-preloader-char" style={{ display: 'inline-block' }}>{char === " " ? "\u00A0" : char}</span>
             ))}
           </span>
         </div>
