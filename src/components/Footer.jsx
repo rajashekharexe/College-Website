@@ -108,7 +108,7 @@ export default function Footer() {
         <p>&copy; {new Date().getFullYear()} A.S. Patil College of Commerce. All Rights Reserved.</p>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <p style={{ margin: 0, opacity: 0.9, fontSize: '1.2rem', fontWeight: 500 }}>Developed by:</p>
-          <Signature color="var(--brand-50)" scale={1.3} />
+          <Signature color="var(--brand-50)" scale={0.4} />
         </div>
       </div>
 
