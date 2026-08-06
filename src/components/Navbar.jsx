@@ -3,6 +3,9 @@ import { Menu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import MegaMenu from './MegaMenu';
 
+import assocLogo from '../assets/association-logo.png';
+import collegeLogo from '../assets/college-logo.png';
+
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
@@ -88,7 +91,7 @@ export default function Navbar() {
           <div className="logo" style={{ display: 'flex', alignItems: 'center' }}>
             <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
               <img 
-                src="/src/assets/association-logo.png" 
+                src={assocLogo} 
                 alt="BLDE Association Logo" 
                 style={{
                   height: '45px',
@@ -98,7 +101,7 @@ export default function Navbar() {
                 }}
               />
               <img 
-                src="/src/assets/college-logo.png" 
+                src={collegeLogo} 
                 alt="College Logo" 
                 style={{
                   height: '55px',
