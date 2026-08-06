@@ -109,7 +109,7 @@ export default function Footer() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <p style={{ margin: 0, opacity: 0.9, fontSize: '1.2rem', fontWeight: 500 }}>Developed by:</p>
           <div style={{ marginTop: '-20px' }}>
-            <Signature color="var(--brand-50)" scale={0.12} />
+            <Signature color="var(--brand-50)" scale={0.08} />
           </div>
         </div>
       </div>
