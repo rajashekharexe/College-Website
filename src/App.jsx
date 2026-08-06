@@ -6,6 +6,7 @@ import Hero from './components/Hero';
 import BentoGrid from './components/BentoGrid';
 import Footer from './components/Footer';
 import InnerPageLayout from './components/InnerPageLayout';
+import AboutUs from './pages/AboutUs';
 import VisionMission from './pages/VisionMission';
 import HighlightsStrip from './components/HighlightsStrip';
 import AboutPreview from './components/AboutPreview';
@@ -59,6 +60,7 @@ function App() {
           <Route path="/" element={<Home />} />
           
           {/* About Us Routes */}
+          <Route path="/about" element={<AboutUs />} />
           <Route path="/about/vision-mission" element={<VisionMission />} />
           <Route path="/about/blde-association" element={<Placeholder title="BLDE Association" />} />
           <Route path="/about/vijayapura" element={<Placeholder title="About Vijayapura" />} />
