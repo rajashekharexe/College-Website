@@ -61,10 +61,10 @@ export default function Navbar() {
     alignItems: 'center',
     padding: '0 5%',
     transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-    // Frosted glass background so black text is always legible
-    background: isScrolled ? 'var(--surface-900)' : 'rgba(255, 255, 255, 0.85)',
-    backdropFilter: isScrolled ? 'none' : 'blur(12px)',
-    borderBottom: isScrolled ? '1px solid rgba(0,0,0,0.05)' : '1px solid rgba(0,0,0,0.05)',
+    // Completely transparent when at the top to let the sky show through!
+    background: isScrolled ? 'var(--surface-900)' : 'transparent',
+    backdropFilter: isScrolled ? 'none' : 'none',
+    borderBottom: isScrolled ? '1px solid rgba(0,0,0,0.05)' : '1px solid transparent',
   };
 
   const navItems = [
@@ -146,7 +146,7 @@ export default function Navbar() {
                 }}
               />
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700, letterSpacing: '1px', color: 'var(--brand-50)', lineHeight: 1.1 }}>
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700, letterSpacing: '1px', color: isScrolled ? 'var(--brand-50)' : '#fff', lineHeight: 1.1, transition: 'color 0.4s' }}>
                   A.S. PATIL
                 </span>
                 <span style={{ fontSize: '0.55rem', color: 'var(--accent-500)', letterSpacing: '1px', textTransform: 'uppercase' }}>
@@ -161,7 +161,7 @@ export default function Navbar() {
               <div key={item.name} className="nav-item-group" style={{ position: 'relative', height: '100%', display: 'flex', alignItems: 'center' }}>
                 <Magnetic>
                   <Link to={item.link} style={{
-                    color: 'var(--brand-50)',
+                    color: isScrolled ? 'var(--brand-50)' : '#fff',
                     fontSize: '0.9rem',
                     fontWeight: 500,
                     letterSpacing: '0.5px',
@@ -250,7 +250,7 @@ export default function Navbar() {
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: 'var(--brand-50)',
+                  color: isScrolled ? 'var(--brand-50)' : '#fff',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
