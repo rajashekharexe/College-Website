@@ -11,7 +11,7 @@ export function Signature({
 }) {
   const maskId = `signature-reveal-${useId().replace(/:/g, "")}`;
   const { paths, width } = signatureData;
-  const height = 180; 
+  const height = 300; 
   
   const variants = {
     hidden: { pathLength: 0, opacity: 0 },
@@ -25,7 +25,7 @@ export function Signature({
     <motion.svg
       width={width * scale}
       height={height * scale}
-      viewBox={`0 -65 ${width} ${height}`}
+      viewBox={`0 -50 ${width} 300`}
       fill="none"
       className={`overflow-visible ${className}`}
       initial="hidden"
