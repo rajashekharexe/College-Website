@@ -107,7 +107,7 @@ export default function Footer() {
       }}>
         <p>&copy; {new Date().getFullYear()} A.S. Patil College of Commerce. All Rights Reserved.</p>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <p style={{ margin: 0, opacity: 0.8 }}>Developed by</p>
+          <p style={{ margin: 0, opacity: 0.8 }}>Developed by:</p>
           <Signature text="Rajashekhar" color="var(--brand-50)" fontSize={28} duration={3} inView={true} once={false} />
         </div>
       </div>

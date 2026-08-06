@@ -28,7 +28,7 @@ export function Signature({
         const fontPaths = fontUrl 
           ? [fontUrl] 
           : [
-              "https://www.componentry.fun/LastoriaBoldRegular.otf",
+              "/signature-font.ttf",
             ];
 
         for (const path of fontPaths) {
