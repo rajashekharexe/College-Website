@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+:root {
+  /* OKLCH Base - Dark Mode Foundation */
+  --hue-brand: 250; /* Deep Blue Hue */
+  --hue-accent: 75; /* Gold/Amber Hue */
+  
+  /* Brand Colors (Dark Text for Light Mode) */
+  --brand-50: oklch(15% 0.02 250); /* Deep charcoal primary text */
+  --brand-500: oklch(45% 0.15 var(--hue-brand)); 
+  --brand-900: oklch(90% 0.05 var(--hue-brand));
+  
+  /* Accent Colors (Gold) */
+  --accent-500: oklch(75% 0.18 var(--hue-accent)); /* Slightly darker gold for contrast */
+  --accent-hover: color-mix(in oklch, var(--accent-500) 80%, black);
+  
+  /* Surface Colors for Light Mode */
+  --surface-100: oklch(95% 0.01 240);
+  --surface-900: oklch(99% 0.005 250); /* Pristine alabaster background */
+  
+  /* Dynamic Theming */
+  --glass-bg: color-mix(in oklch, var(--surface-900) 70%, transparent);
+  --glass-border: color-mix(in oklch, var(--brand-50) 10%, transparent);
+
+  /* Fluid Typography */
+  --font-body: 'Inter', sans-serif;
+  --font-display: 'Playfair Display', serif;
+  
+  --text-xs: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.3vw, 1rem);
+  --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
+  --text-xl: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+  --text-2xl: clamp(2rem, 1.5rem + 2.5vw, 3rem);
+  --text-4xl: clamp(2.5rem, 2rem + 4vw, 5rem);
+  --text-6xl: clamp(3.5rem, 2.5rem + 6vw, 9rem);
+}
+
+/* Hard Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+body {
+  background-color: var(--surface-900);
+  color: var(--brand-50);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--brand-50);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hide default browser scrollbar for a seamless experience */
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
