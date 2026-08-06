@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Signature } from './Signature';
 
 export default function Footer() {
   return (
@@ -105,7 +106,10 @@ export default function Footer() {
         fontSize: '0.85rem'
       }}>
         <p>&copy; {new Date().getFullYear()} A.S. Patil College of Commerce. All Rights Reserved.</p>
-        <p>Awwwards God-Mode Design</p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <p style={{ margin: 0, opacity: 0.8 }}>Designed by</p>
+          <Signature text="Rajashekhar" color="var(--brand-50)" fontSize={28} duration={3} inView={true} once={false} />
+        </div>
       </div>
 
       <style>{`
