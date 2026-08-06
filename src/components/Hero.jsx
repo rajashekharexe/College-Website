@@ -297,7 +297,7 @@ export default function Hero() {
               <span key={i} className="preloader-char" style={{ display: 'inline-block' }}>{char}</span>
             ))}
           </span> 
-          <span style={{ display: 'flex', opacity: 0.9 }}>
+          <span style={{ display: 'flex', opacity: 0.9, color: '#fff' }}>
             {assocText.map((char, i) => (
               <span key={i} className="preloader-char" style={{ display: 'inline-block' }}>{char === " " ? "\u00A0" : char}</span>
             ))}
@@ -326,7 +326,7 @@ export default function Hero() {
               <span key={i} className="college-preloader-char" style={{ display: 'inline-block' }}>{char === " " ? "\u00A0" : char}</span>
             ))}
           </span> 
-          <span style={{ display: 'flex', opacity: 0.9 }}>
+          <span style={{ display: 'flex', opacity: 0.9, color: '#fff' }}>
             {commerceText.map((char, i) => (
               <span key={i} className="college-preloader-char" style={{ display: 'inline-block' }}>{char === " " ? "\u00A0" : char}</span>
             ))}
