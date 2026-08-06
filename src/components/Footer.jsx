@@ -30,8 +30,7 @@ export default function Footer() {
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
             <div style={{ width: '60px', height: '60px', background: 'rgba(255,255,255,0.05)', borderRadius: '50%', padding: '8px' }}>
-              {/* Fallback styling for missing image */}
-              <div style={{ width: '100%', height: '100%', border: '1px dashed var(--glass-border)', borderRadius: '50%' }}></div>
+              <div style={{ width: '100%', height: '100%', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%' }}></div>
             </div>
             <div>
               <p style={{ fontSize: '0.8rem', opacity: 0.6, margin: 0 }}>Managed by</p>

@@ -89,16 +89,24 @@ export default function AboutPreview() {
           height: '600px',
           borderRadius: '24px',
           overflow: 'hidden',
-          backgroundColor: '#f5f5f5', // Subtle gray skeleton
+          backgroundColor: 'rgba(0,0,0,0.03)',
           boxShadow: '0 20px 60px rgba(0,0,0,0.05)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          border: '1px dashed rgba(0,0,0,0.1)'
+          border: '1px solid rgba(0,0,0,0.05)'
         }}>
-          {/* Skeleton Placeholder */}
-          <div style={{ color: 'rgba(0,0,0,0.3)', fontFamily: 'var(--font-display)', fontSize: '2rem' }}>
-            [ President Image ]
+          <div style={{
+            position: 'absolute',
+            inset: '-20%',
+            background: 'linear-gradient(135deg, rgba(235, 186, 81, 0.05) 0%, rgba(255,255,255,0) 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+             <span style={{ color: 'var(--brand-50)', opacity: 0.3, textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.9rem' }}>
+               President Portrait
+             </span>
           </div>
         </div>
       </div>
