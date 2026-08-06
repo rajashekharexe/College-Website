@@ -218,7 +218,7 @@ export default function Hero() {
     left: 0,
     width: '100%',
     height: '100%',
-    background: 'linear-gradient(75deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 45%, rgba(255,255,255,0) 80%)',
+    background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.5) 100%)',
     zIndex: 1,
     pointerEvents: 'none'
   };
@@ -341,8 +341,8 @@ export default function Hero() {
         <div className="hero-fade-up" style={{
           display: 'inline-block',
           padding: '8px 20px',
-          backgroundColor: 'rgba(255,255,255,0.6)',
-          border: '1px solid rgba(0,0,0,0.05)',
+          backgroundColor: 'rgba(0,0,0,0.3)',
+          border: '1px solid rgba(255,255,255,0.1)',
           borderRadius: '50px',
           backdropFilter: 'blur(10px)',
           marginBottom: '1.5rem',
@@ -366,8 +366,7 @@ export default function Hero() {
           lineHeight: 1.1,
           fontFamily: 'var(--font-display)',
           fontWeight: 700,
-          color: 'var(--brand-50)',
-          textShadow: '0 4px 30px rgba(255,255,255,0.8), 0 2px 10px rgba(255,255,255,0.5)',
+          color: '#ffffff',
           perspective: '1200px'
         }}>
           {"Education at the".split(' ').map((word, wIdx) => (
@@ -394,13 +393,11 @@ export default function Hero() {
         
         <div style={{
           fontSize: 'var(--text-lg)',
-          color: 'var(--brand-50)',
-          opacity: 0.9,
+          color: 'rgba(255, 255, 255, 0.9)',
           maxWidth: '650px',
           marginBottom: '3rem',
           lineHeight: 1.6,
-          fontWeight: 400,
-          textShadow: '0 2px 15px rgba(255,255,255,0.8)'
+          fontWeight: 400
         }}>
           {"Affiliated to Rani Channamma University. Accredited by NAAC at B++ Level. Shaping the future of commerce and management in Vijayapura since 2007.".split(' ').map((word, wIdx) => (
             <span key={wIdx} className="hero-word" style={{ display: 'inline-block', marginRight: '0.25em' }}>
@@ -436,9 +433,9 @@ export default function Hero() {
           </button>
           
           <button style={{
-            background: 'transparent',
-            color: 'var(--brand-50)',
-            border: '1px solid rgba(0,0,0,0.2)',
+            background: 'rgba(255,255,255,0.05)',
+            color: '#ffffff',
+            border: '1px solid rgba(255,255,255,0.2)',
             padding: '16px 36px',
             borderRadius: '50px',
             fontFamily: 'var(--font-body)',
