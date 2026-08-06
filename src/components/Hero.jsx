@@ -200,7 +200,7 @@ export default function Hero() {
     left: 0,
     width: '100%',
     height: '100%',
-    background: 'linear-gradient(75deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 45%, rgba(255,255,255,0) 80%)',
+    background: 'linear-gradient(75deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 45%, rgba(255,255,255,0) 80%)',
     zIndex: 1,
     pointerEvents: 'none'
   };
@@ -279,7 +279,7 @@ export default function Hero() {
               <span key={i} className="preloader-char" style={{ display: 'inline-block' }}>{char}</span>
             ))}
           </span> 
-          <span style={{ display: 'flex', opacity: 0.9, color: '#fff' }}>
+          <span style={{ display: 'flex', opacity: 0.9 }}>
             {assocText.map((char, i) => (
               <span key={i} className="preloader-char" style={{ display: 'inline-block' }}>{char === " " ? "\u00A0" : char}</span>
             ))}
@@ -320,6 +320,7 @@ export default function Hero() {
           fontFamily: 'var(--font-display)',
           fontWeight: 700,
           color: 'var(--brand-50)',
+          textShadow: '0 4px 30px rgba(255,255,255,0.8), 0 2px 10px rgba(255,255,255,0.5)',
           perspective: '1200px'
         }}>
           {"Education at the".split(' ').map((word, wIdx) => (
@@ -351,7 +352,8 @@ export default function Hero() {
           maxWidth: '650px',
           marginBottom: '3rem',
           lineHeight: 1.6,
-          fontWeight: 400
+          fontWeight: 400,
+          textShadow: '0 2px 15px rgba(255,255,255,0.8)'
         }}>
           {"Affiliated to Rani Channamma University. Accredited by NAAC at B++ Level. Shaping the future of commerce and management in Vijayapura since 2007.".split(' ').map((word, wIdx) => (
             <span key={wIdx} className="hero-word" style={{ display: 'inline-block', marginRight: '0.25em' }}>
