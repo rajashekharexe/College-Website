@@ -1,6 +1,7 @@
 import React, { useEffect, useId, useState } from "react";
 import { motion } from "framer-motion";
 import opentype from "opentype.js";
+import defaultFontUrl from "../assets/signature-font.ttf?url";
 
 export function Signature({
   text = "Signature",
@@ -28,7 +29,7 @@ export function Signature({
         const fontPaths = fontUrl 
           ? [fontUrl] 
           : [
-              "/signature-font.ttf",
+              defaultFontUrl,
             ];
 
         for (const path of fontPaths) {
