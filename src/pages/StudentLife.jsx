@@ -1,59 +1,119 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import InnerPageLayout from '../components/InnerPageLayout';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const Section = ({ title, id }) => (
-  <section id={id} style={{ 
-    marginBottom: '6rem', 
-    padding: '3rem', 
-    background: 'var(--surface-800)', 
-    borderRadius: '16px',
-    border: '1px solid var(--glass-border)'
-  }}>
-    <h2 style={{ 
-      color: 'var(--accent-500)', 
-      fontFamily: 'var(--font-display)', 
-      fontSize: '2rem',
-      marginBottom: '1.5rem'
-    }}>{title}</h2>
-    <div style={{
-      width: '100%',
-      height: '300px',
-      background: 'rgba(255,255,255,0.02)',
-      border: '1px dashed rgba(255,255,255,0.1)',
-      borderRadius: '8px',
+gsap.registerPlugin(ScrollTrigger);
+
+const CellCard = ({ title, content }) => {
+  return (
+    <div className="stagger-cell" style={{
+      background: 'var(--surface-100)',
+      border: '1px solid rgba(0,0,0,0.05)',
+      borderRadius: '24px',
+      padding: '3rem',
       display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: 'var(--brand-50)',
-      opacity: 0.5
+      flexDirection: 'column',
+      gap: '1.5rem',
+      boxShadow: '0 10px 30px rgba(0,0,0,0.02)'
     }}>
-      [Image and Content for {title} will go here]
+      <h3 style={{ 
+        color: 'var(--brand-50)', 
+        fontSize: 'var(--text-xl)', 
+        fontFamily: 'var(--font-display)',
+        fontWeight: 700,
+        letterSpacing: '-0.5px'
+      }}>
+        {title}
+      </h3>
+      <p style={{ color: 'var(--brand-50)', opacity: 0.75, fontSize: '1rem', lineHeight: 1.6 }}>
+        {content}
+      </p>
     </div>
-  </section>
-);
+  );
+};
 
 export default function StudentLife() {
+  const breadcrumbs = [
+    { label: 'Student Life' }
+  ];
+
+  const gridRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.stagger-cell',
+        { opacity: 0, y: 80, scale: 0.95 },
+        {
+          opacity: 1, 
+          y: 0, 
+          scale: 1,
+          duration: 1, 
+          stagger: 0.1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: gridRef.current,
+            start: 'top 85%'
+          }
+        }
+      );
+    }, gridRef);
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div style={{ padding: '6rem 5%', backgroundColor: 'var(--surface-900)' }} id="student-life">
-      <div style={{ marginBottom: '4rem', textAlign: 'center' }}>
-        <h2 style={{ fontSize: '3rem', color: 'var(--accent-500)', fontFamily: 'var(--font-display)', marginBottom: '1rem' }}>
-          Student Life
-        </h2>
-        <p style={{ color: 'var(--brand-50)', opacity: 0.8, maxWidth: '800px', margin: '0 auto', fontSize: '1.2rem' }}>
-          Discover the vibrant campus life, diverse clubs, and comprehensive support systems for our students.
+    <InnerPageLayout title="Student Life" breadcrumbs={breadcrumbs}>
+      
+      {/* Intro section */}
+      <div className="editorial-content" style={{ maxWidth: '800px', marginBottom: '8rem' }}>
+        <p style={{ fontSize: 'var(--text-2xl)', color: 'var(--brand-50)', fontWeight: 300, lineHeight: 1.4 }}>
+          Beyond academics, we believe in the holistic development of our students. From sports and cultural activities to vital support cells, campus life is vibrant, safe, and profoundly enriching.
         </p>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-        <Section title="Placements" id="placements" />
-        <Section title="Anti-Ragging Cell" id="anti-ragging-cell" />
-        <Section title="Student Grievance Redressal Cell (SGRC)" id="sgrc" />
-        <Section title="Anti-Sexual Harassment Cell" id="anti-sexual-harassment-cell" />
-        <Section title="NCC" id="ncc" />
-        <Section title="Sports" id="sports" />
-        <Section title="NSS" id="nss" />
-        <Section title="YRC Society" id="yrc-society" />
-        <Section title="Women's Forum" id="womens-forum" />
-        <Section title="Minority Cell" id="minority-cell" />
+
+      <div ref={gridRef} style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
+        gap: '2rem' 
+      }}>
+        <CellCard 
+          title="National Cadet Corps (NCC)" 
+          content="The college offers training in the Army Wing for boys & girls, affiliated with 36 KAR.BN. Training includes trekking, rock climbing, and social campaigns with provision for B & C certificate exams." 
+        />
+        <CellCard 
+          title="National Service Scheme (NSS)" 
+          content="Established in 1973 with the motto 'Not Me but You'. Volunteers actively engage in tree plantation, health awareness, blood donation camps, and constructive village work." 
+        />
+        <CellCard 
+          title="Sports & Athletics" 
+          content="We provide state-of-the-art fields and courts for athletics, basketball, volleyball, and indoor games. Our sportsmen regularly represent the college at district, zonal, and state levels." 
+        />
+        <CellCard 
+          title="Women's Forum" 
+          content="A platform for women to express their views and resolve academic or social difficulties. The 'Matruchaya' initiative ensures physical and mental well-being for all female students." 
+        />
+        <CellCard 
+          title="Anti-Ragging Cell" 
+          content="A vigilant committee dedicated to preserving a completely ragging-free environment. We enforce strict discipline to ensure every student feels safe and respected on campus." 
+        />
+        <CellCard 
+          title="Anti-Sexual Harassment Cell" 
+          content="Providing a healthy, congenial atmosphere free of gender violence, exploitation, and discrimination. We value the dignity of every individual and uphold fundamental rights." 
+        />
+        <CellCard 
+          title="Minority Cell" 
+          content="Empowering minority communities through social and academic development. We assist students in securing scholarships and enrolling in career-oriented programs." 
+        />
+        <CellCard 
+          title="Youth Red Cross Society" 
+          content="Training students to assist in relief activities during national disasters. Volunteers organize blood donation drives and health awareness programs for weaker sections of society." 
+        />
+        <CellCard 
+          title="Placements" 
+          content="Our dedicated placement cell works tirelessly to bridge the gap between academia and industry, ensuring our students secure positions in top-tier companies globally." 
+        />
       </div>
-    </div>
+
+    </InnerPageLayout>
   );
 }

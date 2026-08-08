@@ -1,0 +1,1 @@
+const fs = require('fs'); const content = fs.readFileSync('C:/Users/Rajashekhar/.gemini/antigravity/brain/a5c5e3c4-dc9a-4554-ab6d-1739acdb282b/.system_generated/steps/1354/content.md', 'utf8'); const idx = content.indexOf('export function Signature'); if (idx !== -1) { console.log(content.substring(idx + 3500, idx + 4500).replace(/\\\\n/g, '\n')); }

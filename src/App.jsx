@@ -15,10 +15,11 @@ import PrincipalDesk from './components/PrincipalDesk';
 import StatsCounter from './components/StatsCounter';
 import TestimonialsCarousel from './components/TestimonialsCarousel';
 
-// --- Disabled Consolidated Pages (Kept for future use if needed) ---
-// import Administration from './pages/Administration';
-// import Academics from './pages/Academics';
-// import StudentLife from './pages/StudentLife';
+// --- Unified Pages ---
+import Administration from './pages/Administration';
+import Academics from './pages/Academics';
+import StudentLife from './pages/StudentLife';
+import Admissions from './pages/Admissions';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -68,37 +69,16 @@ function App() {
           <Route path="/about/infrastructure" element={<Placeholder title="Infrastructure" />} />
           <Route path="/about/it-policy" element={<Placeholder title="IT Policy" />} />
           {/* Academics Routes */}
-          <Route path="/academics/programmes" element={<Placeholder title="Programmes" />} />
-          <Route path="/academics/outcome-based-education" element={<Placeholder title="Outcome Based Education" />} />
-          <Route path="/academics/value-added-courses" element={<Placeholder title="Value Added Courses" />} />
-          <Route path="/academics/academic-calendar" element={<Placeholder title="Academic Calendar" />} />
-          <Route path="/academics/departments" element={<Placeholder title="Departments" />} />
-          <Route path="/academics/faculty" element={<Placeholder title="Faculty" />} />
+          <Route path="/academics/*" element={<Academics />} />
 
           {/* Administration Routes */}
-          <Route path="/administration/principals-message" element={<Placeholder title="Principal's Message" />} />
-          <Route path="/administration/governing-body" element={<Placeholder title="Governing Body" />} />
-          <Route path="/administration/academic-council" element={<Placeholder title="Academic Council" />} />
-          <Route path="/administration/board-of-studies" element={<Placeholder title="Board of Studies" />} />
-          <Route path="/administration/controller-of-examination" element={<Placeholder title="Controller of Examination" />} />
+          <Route path="/administration/*" element={<Administration />} />
 
           {/* Student Life Routes */}
-          <Route path="/student-life/placements" element={<Placeholder title="Placements" />} />
-          <Route path="/student-life/anti-ragging-cell" element={<Placeholder title="Anti-Ragging Cell" />} />
-          <Route path="/student-life/sgrc" element={<Placeholder title="SGRC" />} />
-          <Route path="/student-life/anti-sexual-harassment-cell" element={<Placeholder title="Anti-Sexual Harassment Cell" />} />
-          <Route path="/student-life/ncc" element={<Placeholder title="NCC" />} />
-          <Route path="/student-life/sports" element={<Placeholder title="Sports" />} />
-          <Route path="/student-life/nss" element={<Placeholder title="NSS" />} />
-          <Route path="/student-life/yrc-society" element={<Placeholder title="YRC Society" />} />
-          <Route path="/student-life/womens-forum" element={<Placeholder title="Women's Forum" />} />
-          <Route path="/student-life/minority-cell" element={<Placeholder title="Minority Cell" />} />
+          <Route path="/student-life/*" element={<StudentLife />} />
 
           {/* Admissions Routes */}
-          <Route path="/admissions/ug" element={<Placeholder title="UG Admissions" />} />
-          <Route path="/admissions/pg" element={<Placeholder title="PG Admissions" />} />
-          <Route path="/admissions/fees" element={<Placeholder title="Fee Structure" />} />
-          <Route path="/admissions/apply" element={<Placeholder title="Apply Now" />} />
+          <Route path="/admissions/*" element={<Admissions />} />
 
           {/* Other Routes */}
           <Route path="/research" element={<Placeholder title="Research" />} />

@@ -36,7 +36,8 @@ export default function Hero() {
       img.onload = () => {
         loadedCount++;
         setLoadingProgress(Math.floor((loadedCount / totalFrames) * 100));
-        if (loadedCount === totalFrames) {
+        // Start immediately when the very first frame loads so user isn't stuck waiting
+        if (i === 1) {
           setIsLoaded(true);
           document.body.style.overflow = 'auto'; // Restore scroll
         }
@@ -234,22 +235,7 @@ export default function Hero() {
 
   return (
     <section style={heroStyle} ref={containerRef}>
-      {!isLoaded && (
-        <div style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          color: 'var(--brand-50)',
-          fontFamily: 'var(--font-display)',
-          fontSize: '3rem',
-          zIndex: 10,
-          fontWeight: 700,
-          letterSpacing: '4px'
-        }}>
-          {loadingProgress}%
-        </div>
-      )}
+
       
       <canvas 
         ref={canvasRef} 
