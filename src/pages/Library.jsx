@@ -8,8 +8,8 @@ const Library = () => {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const [images, setImages] = useState([]);
-  // Frame count from extraction
-  const frameCount = 443; 
+  // Frame count from extraction (now 60fps)
+  const frameCount = 884; 
 
   // Refs for text overlays
   const textIntro = useRef(null);
@@ -58,7 +58,7 @@ const Library = () => {
       scrollTrigger: {
         trigger: containerRef.current,
         start: 'top top',
-        end: '+=6000', // 6000px of scrolling for the whole sequence
+        end: '+=12000', // Double the scroll distance for 884 frames
         scrub: 0.5,
         pin: true,
       }
