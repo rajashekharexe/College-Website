@@ -16,42 +16,66 @@ const Library = () => {
   const textStacks = useRef(null);
   const textReading = useRef(null);
   const textMags = useRef(null);
+  
+  // Cache for images to avoid React state re-renders
+  const imageCache = useRef({});
 
   useEffect(() => {
-    // 1. Preload images
-    const loadImages = async () => {
-      const loadedImages = [];
-      for (let i = 1; i <= frameCount; i++) {
-        const img = new Image();
-        img.src = `/library-frames/frame_${i.toString().padStart(4, '0')}.webp`;
-        loadedImages.push(img);
-      }
-      setImages(loadedImages);
-    };
-    loadImages();
-  }, []);
-
-  useEffect(() => {
-    if (images.length === 0) return;
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: false }); // Optimize canvas for opaque images
     
     // Set canvas dimensions
     canvas.width = 1920;
     canvas.height = 1080;
 
+    // Helper to get image path
+    const getImagePath = (index) => `/library-frames/frame_${index.toString().padStart(4, '0')}.webp`;
+
+    // Render function called by GSAP
     const render = (frameIndex) => {
-      if (images[frameIndex]) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(images[frameIndex], 0, 0, canvas.width, canvas.height);
+      const index = Math.max(1, Math.min(frameCount, Math.round(frameIndex)));
+      
+      // If we have it in cache and it's loaded, draw it
+      if (imageCache.current[index] && imageCache.current[index].complete) {
+        ctx.drawImage(imageCache.current[index], 0, 0, canvas.width, canvas.height);
+      } else {
+        // Just-in-time loading if user scrolls fast
+        const img = new Image();
+        img.src = getImagePath(index);
+        img.onload = () => {
+          imageCache.current[index] = img;
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
       }
     };
 
-    // Render first frame
-    images[0].onload = () => render(0);
-    if(images[0].complete) render(0);
+    // Load and render first frame immediately to prevent white screen
+    const firstImg = new Image();
+    firstImg.src = getImagePath(1);
+    firstImg.onload = () => {
+      imageCache.current[1] = firstImg;
+      render(1);
+      
+      // Once first frame is loaded, kick off background preloading chunk by chunk
+      // to avoid network congestion and main-thread blocking
+      let currentPreloadIndex = 2;
+      const preloadNextChunk = () => {
+        if (currentPreloadIndex > frameCount) return;
+        
+        const chunkEnd = Math.min(currentPreloadIndex + 10, frameCount);
+        for (let i = currentPreloadIndex; i <= chunkEnd; i++) {
+          const img = new Image();
+          img.src = getImagePath(i);
+          imageCache.current[i] = img;
+        }
+        currentPreloadIndex = chunkEnd + 1;
+        // Schedule next chunk slightly later to keep UI responsive
+        setTimeout(preloadNextChunk, 100);
+      };
+      preloadNextChunk();
+    };
 
-    const playhead = { frame: 0 };
+    const playhead = { frame: 1 };
     
     // Main Timeline
     const tl = gsap.timeline({
@@ -59,14 +83,14 @@ const Library = () => {
         trigger: containerRef.current,
         start: 'top top',
         end: '+=12000', // Double the scroll distance for 884 frames
-        scrub: 0.5,
+        scrub: 0.1, // Lower scrub value for more immediate response (less laggy feeling)
         pin: true,
       }
     });
 
     // 1. Video Scrubbing (runs continuously alongside text)
     tl.to(playhead, {
-      frame: frameCount - 1,
+      frame: frameCount,
       snap: 'frame',
       ease: 'none',
       onUpdate: () => render(playhead.frame)
@@ -113,7 +137,7 @@ const Library = () => {
       tl.kill();
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
-  }, [images]);
+  }, []);
 
   return (
     <div ref={containerRef} className="relative w-full h-screen overflow-hidden bg-brand-900">
