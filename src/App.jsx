@@ -20,7 +20,6 @@ import Administration from './pages/Administration';
 import Academics from './pages/Academics';
 import StudentLife from './pages/StudentLife';
 import Admissions from './pages/Admissions';
-import Library from './pages/Library';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -85,7 +84,7 @@ function App() {
           <Route path="/research" element={<Placeholder title="Research" />} />
           <Route path="/iqac" element={<Placeholder title="IQAC" />} />
           <Route path="/contact" element={<Placeholder title="Contact Us" />} />
-          <Route path="/library" element={<Library />} />
+          <Route path="/library" element={<Placeholder title="Library" />} />
           <Route path="/alumni" element={<Placeholder title="Alumni" />} />
           <Route path="/irins" element={<Placeholder title="IRINS" />} />
 
