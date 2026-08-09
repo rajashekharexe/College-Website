@@ -53,10 +53,11 @@ export default function PrincipalDesk() {
           border: '1px solid rgba(0,0,0,0.05)',
           order: 1
         }}>
-          {/* Skeleton Placeholder */}
-          <div style={{ color: 'rgba(0,0,0,0.3)', fontFamily: 'var(--font-display)', fontSize: '1.5rem', textAlign: 'center' }}>
-            [ Principal's<br/>Image ]
-          </div>
+          <img 
+            src="/images/principal.jpg" 
+            alt="Prof. S.B. Kamati" 
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} 
+          />
         </div>
 
         {/* Right: Text Content */}
@@ -104,7 +105,7 @@ export default function PrincipalDesk() {
           </div>
           
           <div style={{ marginTop: '2rem' }}>
-            <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--brand-50)', fontSize: '1.3rem' }}>Prof. S.G. Talikoti</h4>
+            <h4 style={{ fontFamily: 'var(--font-display)', color: 'var(--brand-50)', fontSize: '1.3rem' }}>Prof. S.B. Kamati</h4>
             <p style={{ color: 'rgba(0,0,0,0.5)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Principal</p>
           </div>
         </div>

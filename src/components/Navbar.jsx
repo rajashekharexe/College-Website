@@ -1,12 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import MegaMenu from './MegaMenu';
 
 import assocLogo from '../assets/association-logo.png';
 import collegeLogo from '../assets/college-logo.png';
 
 export default function Navbar() {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
   const Magnetic = ({ children }) => {
     const ref = useRef(null);
     const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -53,15 +56,19 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const isDarkHeroPage = location.pathname === '/' || location.pathname === '/library';
+  const isLightText = isDarkHeroPage && !isScrolled;
+  const textColor = isLightText ? '#fff' : 'var(--brand-50)';
+
   const navStyles = {
     position: 'relative',
-    height: '90px', // slightly taller for a premium feel
+    height: '72px', // Thinner, sleeker navbar
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '0 5%',
     transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-    // Completely transparent when at the top to let the sky show through!
+    // Completely transparent when at the top to let the sky/background show through!
     background: isScrolled ? 'var(--surface-900)' : 'transparent',
     backdropFilter: isScrolled ? 'none' : 'none',
     borderBottom: isScrolled ? '1px solid rgba(0,0,0,0.05)' : '1px solid transparent',
@@ -69,44 +76,11 @@ export default function Navbar() {
 
   const navItems = [
     { name: 'About Us', link: '/about' },
-    { 
-      name: 'Administration', 
-      link: '/administration',
-      dropdown: [
-        { name: "Principal's Message", link: '/administration/principals-message' },
-        { name: 'Governing Body', link: '/administration/governing-body' },
-        { name: 'Academic Council', link: '/administration/academic-council' },
-        { name: 'Board of Studies', link: '/administration/board-of-studies' },
-        { name: 'Controller of Examination', link: '/administration/controller-of-examination' }
-      ]
-    },
-    { 
-      name: 'Academics', 
-      link: '/academics',
-      dropdown: [
-        { name: 'Programmes', link: '/academics/programmes' },
-        { name: 'Outcome Based Education', link: '/academics/outcome-based-education' },
-        { name: 'Value Added Courses', link: '/academics/value-added-courses' },
-        { name: 'Academic Calendar', link: '/academics/academic-calendar' }
-      ]
-    },
-    { name: 'Admissions', link: '/admissions/apply' },
-    { 
-      name: 'Student Life', 
-      link: '/student-life',
-      dropdown: [
-        { name: 'Placements', link: '/student-life/placements' },
-        { name: 'Anti-Ragging Cell', link: '/student-life/anti-ragging-cell' },
-        { name: 'SGRC', link: '/student-life/sgrc' },
-        { name: 'Anti-Sexual Harassment Cell', link: '/student-life/anti-sexual-harassment-cell' },
-        { name: 'NCC', link: '/student-life/ncc' },
-        { name: 'Sports', link: '/student-life/sports' },
-        { name: 'NSS', link: '/student-life/nss' },
-        { name: 'YRC Society', link: '/student-life/yrc-society' },
-        { name: "Women's Forum", link: '/student-life/womens-forum' },
-        { name: 'Minority Cell', link: '/student-life/minority-cell' }
-      ]
-    },
+    { name: 'Administration', link: '/administration' },
+    { name: 'Academics', link: '/academics' },
+    { name: 'Admissions', link: '/admissions' },
+    { name: 'Student Life', link: '/student-life' },
+    { name: 'Library', link: '/library' },
     { name: 'Alumni', link: '/alumni' }
   ];
 
@@ -129,7 +103,7 @@ export default function Navbar() {
                 src={assocLogo} 
                 alt="BLDE Association Logo" 
                 style={{
-                  height: '45px',
+                  height: '38px',
                   width: 'auto',
                   objectFit: 'contain',
                   borderRadius: '50%'
@@ -139,17 +113,17 @@ export default function Navbar() {
                 src={collegeLogo} 
                 alt="College Logo" 
                 style={{
-                  height: '55px',
+                  height: '46px',
                   width: 'auto',
                   objectFit: 'contain',
                   borderRadius: '50%'
                 }}
               />
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700, letterSpacing: '1px', color: isScrolled ? 'var(--brand-50)' : '#fff', lineHeight: 1.1, transition: 'color 0.4s' }}>
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: '0.95rem', fontWeight: 700, letterSpacing: '1px', color: textColor, lineHeight: 1.1, transition: 'color 0.4s' }}>
                   A.S. PATIL
                 </span>
-                <span style={{ fontSize: '0.55rem', color: 'var(--accent-500)', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: '0.5rem', color: 'var(--accent-500)', letterSpacing: '1px', textTransform: 'uppercase' }}>
                   College of Commerce
                 </span>
               </div>
@@ -161,7 +135,7 @@ export default function Navbar() {
               <div key={item.name} className="nav-item-group" style={{ position: 'relative', height: '100%', display: 'flex', alignItems: 'center' }}>
                 <Magnetic>
                   <Link to={item.link} style={{
-                    color: isScrolled ? 'var(--brand-50)' : '#fff',
+                    color: textColor,
                     fontSize: '0.9rem',
                     fontWeight: 500,
                     letterSpacing: '0.5px',
@@ -250,7 +224,7 @@ export default function Navbar() {
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: isScrolled ? 'var(--brand-50)' : '#fff',
+                  color: textColor,
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',

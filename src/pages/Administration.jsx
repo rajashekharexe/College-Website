@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const AdminProfile = ({ name, role, imagePlaceholder }) => {
+const AdminProfile = ({ name, role, imagePlaceholder, imageUrl }) => {
   return (
     <div className="stagger-profile" style={{
       display: 'flex',
@@ -22,20 +22,24 @@ const AdminProfile = ({ name, role, imagePlaceholder }) => {
         overflow: 'hidden'
       }}>
         {/* Subtle loading pulse effect for the placeholder */}
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(135deg, rgba(235, 186, 81, 0.1) 0%, rgba(255,255,255,0) 100%)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '1rem',
-          textAlign: 'center'
-        }}>
-           <span style={{ color: 'var(--brand-50)', opacity: 0.4, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.8rem' }}>
-             {imagePlaceholder} Portrait
-           </span>
-        </div>
+        {imageUrl ? (
+          <img src={imageUrl} alt={name} style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }} />
+        ) : (
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(135deg, rgba(235, 186, 81, 0.1) 0%, rgba(255,255,255,0) 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '1rem',
+            textAlign: 'center'
+          }}>
+             <span style={{ color: 'var(--brand-50)', opacity: 0.4, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.8rem' }}>
+               {imagePlaceholder} Portrait
+             </span>
+          </div>
+        )}
       </div>
       <div>
         <h4 style={{ color: 'var(--brand-50)', fontSize: '1.2rem', fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '0.2rem' }}>
@@ -119,7 +123,7 @@ export default function Administration() {
               We believe that enterprise indeed is prosperity. We are committed to nurturing an environment for the holistic growth of learners, ensuring they are well-equipped to contribute to nation-building activities.
             </p>
             <div>
-              <h4 style={{ color: 'var(--brand-50)', fontSize: '1.2rem', fontFamily: 'var(--font-display)', fontWeight: 700 }}>Prof. B S Belagali</h4>
+              <h4 style={{ color: 'var(--brand-50)', fontSize: '1.2rem', fontFamily: 'var(--font-display)', fontWeight: 700 }}>Prof. S.B. Kamati</h4>
               <p style={{ color: 'var(--accent-500)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 600 }}>Principal</p>
             </div>
           </div>
@@ -133,18 +137,11 @@ export default function Administration() {
             position: 'relative',
             overflow: 'hidden'
           }}>
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(135deg, rgba(235, 186, 81, 0.1) 0%, rgba(255,255,255,0) 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-               <span style={{ color: 'var(--brand-50)', opacity: 0.4, textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.9rem' }}>
-                 Principal Portrait
-               </span>
-            </div>
+            <img 
+              src="/images/principal.jpg" 
+              alt="Prof. S.B. Kamati" 
+              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} 
+            />
           </div>
 
         </div>
@@ -175,7 +172,7 @@ export default function Administration() {
           gap: '3rem' 
         }}>
           {/* Placeholders for Governing Body members */}
-          <AdminProfile name="Dr. M. B. Patil" role="President, BLDE Association" imagePlaceholder="President" />
+          <AdminProfile name="Dr. M. B. Patil" role="President, BLDE Association" imagePlaceholder="President" imageUrl="/images/Chancellor-Dr.-shri-M.B.Patil.jpg" />
           <AdminProfile name="Shri G. K. Patil" role="General Secretary" imagePlaceholder="Secretary" />
           <AdminProfile name="Board Member" role="Academic Advisor" imagePlaceholder="Member" />
           <AdminProfile name="Board Member" role="Industry Expert" imagePlaceholder="Member" />

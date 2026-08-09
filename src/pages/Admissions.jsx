@@ -72,28 +72,29 @@ export default function Admissions() {
   return (
     <InnerPageLayout title="Admissions" breadcrumbs={breadcrumbs}>
       
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem', marginBottom: '8rem' }}>
-        <div style={{ maxWidth: '600px' }}>
-          <h2 style={{ 
-            fontSize: 'var(--text-2xl)', 
-            color: 'var(--brand-50)', 
-            fontWeight: 300, 
-            lineHeight: 1.4,
-            marginBottom: '2rem'
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '4rem', marginBottom: '8rem', alignItems: 'start' }}>
+        <div style={{ maxWidth: '600px', marginTop: '1rem' }}>
+          <p style={{ 
+            fontSize: '1.25rem', 
+            color: 'rgba(0,0,0,0.7)', 
+            fontWeight: 400, 
+            lineHeight: 1.7,
+            marginBottom: '3rem',
+            fontFamily: 'var(--font-body)'
           }}>
             Join a legacy of excellence. We are looking for driven, curious minds ready to shape the future of commerce and management.
-          </h2>
+          </p>
           
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             <button style={{
               background: 'var(--brand-50)',
-              color: 'var(--surface-50)',
+              color: '#fff',
               border: 'none',
-              padding: '1rem 2rem',
+              padding: '1rem 2.5rem',
               borderRadius: '50px',
               fontFamily: 'var(--font-body)',
               fontWeight: 600,
-              fontSize: '1rem',
+              fontSize: '0.95rem',
               cursor: 'pointer',
               transition: 'transform 0.3s'
             }}
@@ -105,15 +106,15 @@ export default function Admissions() {
               background: 'transparent',
               color: 'var(--brand-50)',
               border: '1px solid rgba(0,0,0,0.1)',
-              padding: '1rem 2rem',
+              padding: '1rem 2.5rem',
               borderRadius: '50px',
               fontFamily: 'var(--font-body)',
               fontWeight: 600,
-              fontSize: '1rem',
+              fontSize: '0.95rem',
               cursor: 'pointer',
               transition: 'background 0.3s'
             }}
-            onMouseOver={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.05)'}
+            onMouseOver={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.03)'}
             onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}>
               Download Brochure
             </button>
@@ -125,8 +126,9 @@ export default function Admissions() {
           background: 'var(--surface-100)',
           border: '1px solid rgba(0,0,0,0.05)',
           borderRadius: '24px',
-          padding: '3rem',
-          boxShadow: '0 20px 40px rgba(0,0,0,0.02)'
+          padding: '2.5rem',
+          boxShadow: '0 20px 40px rgba(0,0,0,0.02)',
+          alignSelf: 'start'
         }}>
           <h3 style={{ color: 'var(--brand-50)', fontSize: '1.5rem', fontFamily: 'var(--font-display)', fontWeight: 700, marginBottom: '2rem' }}>
             Key Dates 2024-25

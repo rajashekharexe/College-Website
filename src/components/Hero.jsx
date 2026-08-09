@@ -61,12 +61,10 @@ export default function Hero() {
     
     // Set initial layout for main Hero text
     gsap.set(overlayRef.current, { opacity: 0 });
-    gsap.set('.hero-char', { 
-      y: 80, 
-      rotationX: -60, 
-      scale: 1.4, 
+    gsap.set('.hero-word-reveal', { 
+      y: 50, 
       opacity: 0, 
-      filter: 'blur(25px)'
+      filter: 'blur(12px)'
     });
     
     gsap.set('.hero-word', { 
@@ -172,11 +170,11 @@ export default function Hero() {
       4.5 
     );
     
-    // 4.7s: Reveal the main Hero 3D text
-    masterTl.to('.hero-char', 
+    // 4.7s: Reveal the main Hero text
+    masterTl.to('.hero-word-reveal', 
       { 
-        y: 0, rotationX: 0, scale: 1, opacity: 1, filter: 'blur(0px)', 
-        duration: 1.0, stagger: 0.02, ease: "power4.out" 
+        y: 0, opacity: 1, filter: 'blur(0px)', 
+        duration: 1.5, stagger: 0.15, ease: "power3.out" 
       },
       4.7 
     )
@@ -357,22 +355,16 @@ export default function Hero() {
         }}>
           {"Education at the".split(' ').map((word, wIdx) => (
             <span key={wIdx} style={{ display: 'inline-block', whiteSpace: 'nowrap', marginRight: '0.25em' }}>
-              {word.split('').map((char, cIdx) => (
-                <span key={cIdx} className="hero-char" style={{ display: 'inline-block', transformOrigin: '50% 50% -50px' }}>{char}</span>
-              ))}
+              <span className="hero-word-reveal" style={{ display: 'inline-block' }}>{word}</span>
             </span>
           ))}
           <br />
           <span style={{ color: 'var(--accent-500)', fontStyle: 'italic', fontWeight: 400, paddingRight: '12px' }}>
-            {"forefront".split('').map((char, cIdx) => (
-              <span key={cIdx} className="hero-char" style={{ display: 'inline-block', transformOrigin: '50% 50% -50px' }}>{char}</span>
-            ))}
+            <span className="hero-word-reveal" style={{ display: 'inline-block' }}>forefront</span>
           </span>
           {"of development.".split(' ').map((word, wIdx) => (
             <span key={wIdx} style={{ display: 'inline-block', whiteSpace: 'nowrap', marginRight: '0.25em' }}>
-              {word.split('').map((char, cIdx) => (
-                <span key={cIdx} className="hero-char" style={{ display: 'inline-block', transformOrigin: '50% 50% -50px' }}>{char}</span>
-              ))}
+              <span className="hero-word-reveal" style={{ display: 'inline-block' }}>{word}</span>
             </span>
           ))}
         </h1>

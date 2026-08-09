@@ -83,7 +83,7 @@ export default function AboutPreview() {
           </div>
         </div>
 
-        {/* Right: Image Placeholder */}
+        {/* Right: Image */}
         <div className="about-anim" style={{
           position: 'relative',
           height: '600px',
@@ -96,18 +96,11 @@ export default function AboutPreview() {
           justifyContent: 'center',
           border: '1px solid rgba(0,0,0,0.05)'
         }}>
-          <div style={{
-            position: 'absolute',
-            inset: '-20%',
-            background: 'linear-gradient(135deg, rgba(235, 186, 81, 0.05) 0%, rgba(255,255,255,0) 100%)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-             <span style={{ color: 'var(--brand-50)', opacity: 0.3, textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.9rem' }}>
-               President Portrait
-             </span>
-          </div>
+          <img 
+            src="/images/Chancellor-Dr.-shri-M.B.Patil.jpg" 
+            alt="Dr. M. B. Patil" 
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} 
+          />
         </div>
       </div>
       

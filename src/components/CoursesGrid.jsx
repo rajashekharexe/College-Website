@@ -20,19 +20,34 @@ export default function CoursesGrid() {
   useEffect(() => {
     const cards = document.querySelectorAll('.course-card');
     
-    gsap.fromTo(cards,
-      { y: 50, opacity: 0 },
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 75%',
+      }
+    });
+
+    // Ultra-clean Apple-style Blur Reveal
+    tl.fromTo('.clean-reveal',
+      { y: 20, opacity: 0, filter: 'blur(8px)' },
+      { y: 0, opacity: 1, filter: 'blur(0px)', duration: 1.2, stagger: 0.2, ease: 'power3.out' }
+    )
+    .fromTo('.sub-text',
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: 'power3.out' },
+      "-=0.8"
+    )
+    // Animate Cards
+    .fromTo(cards,
+      { y: 40, opacity: 0 },
       {
         y: 0,
         opacity: 1,
         duration: 0.8,
         stagger: 0.1,
         ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-        }
-      }
+      },
+      "-=0.6"
     );
   }, []);
 
@@ -49,13 +64,21 @@ export default function CoursesGrid() {
           fontFamily: 'var(--font-display)',
           fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
           color: 'var(--brand-50)',
-          marginBottom: '1rem'
+          marginBottom: '1.5rem',
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '12px',
+          flexWrap: 'wrap',
+          lineHeight: 1.2
         }}>
-          Academic <span style={{ color: 'var(--accent-500)', fontStyle: 'italic' }}>Programmes</span>
+          <span className="clean-reveal" style={{ display: 'inline-block' }}>Academic</span>
+          <span className="clean-reveal" style={{ display: 'inline-block', color: 'var(--accent-500)', fontStyle: 'italic' }}>Programmes</span>
         </h2>
-        <p style={{ color: 'rgba(0,0,0,0.6)', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto' }}>
-          Comprehensive degrees designed to equip you with the skills needed for global commerce, management, and technology.
-        </p>
+        <div>
+          <p className="sub-text" style={{ color: 'rgba(0,0,0,0.6)', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto', lineHeight: 1.6 }}>
+            Comprehensive degrees designed to equip you with the skills needed for global commerce, management, and technology.
+          </p>
+        </div>
       </div>
 
       <div style={{
