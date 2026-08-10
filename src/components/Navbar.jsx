@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu } from 'lucide-react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import MegaMenu from './MegaMenu';
 
@@ -10,38 +11,41 @@ export default function Navbar() {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
+  // Emil Kowalski style spring-physics magnetic button
   const Magnetic = ({ children }) => {
     const ref = useRef(null);
-    const [pos, setPos] = useState({ x: 0, y: 0 });
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    
+    // Physics parameters for that premium heavy feel
+    const springConfig = { stiffness: 150, damping: 15, mass: 0.1 };
+    const springX = useSpring(x, springConfig);
+    const springY = useSpring(y, springConfig);
 
     const handleMouseMove = (e) => {
       if (!ref.current) return;
       const { clientX, clientY } = e;
       const { height, width, left, top } = ref.current.getBoundingClientRect();
-      const x = (clientX - (left + width / 2)) * 0.3;
-      const y = (clientY - (top + height / 2)) * 0.3;
-      setPos({ x, y });
+      const xPos = (clientX - (left + width / 2)) * 0.35;
+      const yPos = (clientY - (top + height / 2)) * 0.35;
+      x.set(xPos);
+      y.set(yPos);
     };
 
     const handleMouseLeave = () => {
-      setPos({ x: 0, y: 0 });
+      x.set(0);
+      y.set(0);
     };
 
     return (
-      <div
+      <motion.div
         ref={ref}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          transform: `translate(${pos.x}px, ${pos.y}px)`,
-          transition: pos.x === 0 && pos.y === 0 ? 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)' : 'transform 0.1s linear',
-        }}
+        style={{ x: springX, y: springY, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
       >
         {children}
-      </div>
+      </motion.div>
     );
   };
 

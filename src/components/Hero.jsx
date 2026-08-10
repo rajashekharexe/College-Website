@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion } from 'framer-motion';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -195,9 +199,23 @@ export default function Hero() {
       onUpdate: renderCanvas
     }, 4.5);
 
+    // Parallax Effect (Impeccable Scroll Polish)
+    // Moves the canvas slower than the scroll speed
+    gsap.to(canvasRef.current, {
+      yPercent: 30,
+      ease: "none",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: "bottom top",
+        scrub: true
+      }
+    });
+
     return () => {
       window.removeEventListener('resize', handleResize);
       masterTl.kill();
+      ScrollTrigger.getAll().forEach(t => t.kill());
     };
   }, [isLoaded]);
 
@@ -384,56 +402,44 @@ export default function Hero() {
           ))}
         </div>
         
-        <div className="hero-fade-up" style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
-          <button style={{
-            background: 'var(--accent-500)',
-            color: '#fff',
-            border: 'none',
-            padding: '16px 36px',
-            borderRadius: '50px',
-            fontFamily: 'var(--font-body)',
-            fontWeight: 600,
-            fontSize: 'var(--text-base)',
-            cursor: 'pointer',
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            boxShadow: '0 10px 30px rgba(235, 186, 81, 0.3)'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.transform = 'translateY(-3px)';
-            e.target.style.boxShadow = '0 15px 40px rgba(235, 186, 81, 0.4)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.transform = 'translateY(0)';
-            e.target.style.boxShadow = '0 10px 30px rgba(235, 186, 81, 0.3)';
-          }}
+        <div className="hero-fade-up" style={{ display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap' }}>
+          <motion.button 
+            whileHover={{ y: -3, boxShadow: '0 15px 40px rgba(235, 186, 81, 0.4)' }}
+            whileTap={{ scale: 0.95, transition: { type: 'spring', stiffness: 400, damping: 20 } }}
+            style={{
+              background: 'var(--accent-500)',
+              color: '#fff',
+              border: 'none',
+              padding: '16px 36px',
+              borderRadius: '50px',
+              fontFamily: 'var(--font-body)',
+              fontWeight: 600,
+              fontSize: 'var(--text-base)',
+              cursor: 'pointer',
+              boxShadow: '0 10px 30px rgba(235, 186, 81, 0.3)'
+            }}
           >
             Explore Programs
-          </button>
+          </motion.button>
           
-          <button style={{
-            background: 'rgba(255,255,255,0.05)',
-            color: '#ffffff',
-            border: '1px solid rgba(255,255,255,0.2)',
-            padding: '16px 36px',
-            borderRadius: '50px',
-            fontFamily: 'var(--font-body)',
-            fontWeight: 600,
-            fontSize: 'var(--text-base)',
-            cursor: 'pointer',
-            transition: 'all 0.3s ease',
-            backdropFilter: 'blur(10px)'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.background = 'rgba(0,0,0,0.03)';
-            e.target.style.borderColor = 'rgba(0,0,0,0.4)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.background = 'transparent';
-            e.target.style.borderColor = 'rgba(0,0,0,0.2)';
-          }}
+          <motion.button 
+            whileHover={{ backgroundColor: 'rgba(0,0,0,0.03)', borderColor: 'rgba(0,0,0,0.4)' }}
+            whileTap={{ scale: 0.95, transition: { type: 'spring', stiffness: 400, damping: 20 } }}
+            style={{
+              background: 'rgba(255,255,255,0.05)',
+              color: '#ffffff',
+              border: '1px solid rgba(255,255,255,0.2)',
+              padding: '16px 36px',
+              borderRadius: '50px',
+              fontFamily: 'var(--font-body)',
+              fontWeight: 600,
+              fontSize: 'var(--text-base)',
+              cursor: 'pointer',
+              backdropFilter: 'blur(10px)'
+            }}
           >
             Virtual Tour
-          </button>
+          </motion.button>
         </div>
       </div>
     </section>
