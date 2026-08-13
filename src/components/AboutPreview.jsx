@@ -37,7 +37,9 @@ export default function AboutPreview() {
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
         gap: '4rem',
-        alignItems: 'center'
+        alignItems: 'center',
+        position: 'relative',
+        zIndex: 1
       }}>
         {/* Left: Text Content */}
         <div>
